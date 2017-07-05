@@ -1,0 +1,11 @@
+#配置git忽略项
+*.class
+
+*.war
+*.ear
+
+.settings/
+.project
+.classpath
+
+target/
