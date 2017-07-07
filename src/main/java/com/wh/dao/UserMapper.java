@@ -1,6 +1,7 @@
 package com.wh.dao;
 
 import com.wh.pojo.User;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
@@ -14,4 +15,8 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+    //登录
+    User login(@Param("username") String username, @Param("password") String password);
+    //检查用户名是否存在
+    int checkUsername(String username);
 }
