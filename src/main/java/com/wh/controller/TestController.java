@@ -16,6 +16,7 @@ public class TestController {
 
     @RequestMapping("/test")
     public Object test() {
+        System.out.printf("test");
         return "hello world";
     }
 }
