@@ -8,7 +8,7 @@ import java.util.List;
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
-    int insert(User record);
+    int insert(User user);
 
     int insertSelective(User record);
 
@@ -23,4 +23,7 @@ public interface UserMapper {
     int checkUsername(String username);
     //获取所有用户
     List<User> getAll();
+    //检查邮箱是否存在
+    int checkEmail(String email);
+    //添加用户
 }

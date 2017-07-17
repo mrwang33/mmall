@@ -5,6 +5,7 @@ import com.wh.dao.UserMapper;
 import com.wh.pojo.User;
 import com.wh.service.IUserService;
 import com.wh.util.MD5Util;
+import net.sf.jsqlparser.schema.Server;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -40,5 +41,22 @@ public class UserServiceImpl implements IUserService{
     public ServerResponse<List<User>> getAll() {
         ServerResponse<List<User>> sr = ServerResponse.createBySuccess(userMapper.getAll());
         return sr;
+    }
+
+    @Override
+    public ServerResponse<String> register(User user) {
+        if (userMapper.checkUsername(user.getUsername())>0) {
+            return ServerResponse.createByErrorMessage("用户名已存在!");
+        }
+        if (userMapper.checkEmail(user.getEmail())>0) {
+            return ServerResponse.createByErrorMessage("邮箱已存在!");
+        }
+        //将密码进行md5加密
+        user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
+        int insert = userMapper.insert(user);
+        if (insert<=0) {
+            return ServerResponse.createByErrorMessage("注册失败！请稍后重试，或联系网站管理员");
+        }
+        return ServerResponse.createBySuccessMessage("注册成功");
     }
 }

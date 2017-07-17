@@ -13,4 +13,6 @@ public interface IUserService {
     ServerResponse<User> login(String username,String password);
     //获取所有用户
     ServerResponse<List<User>> getAll();
+    //注册
+    ServerResponse<String> register(User user);
 }

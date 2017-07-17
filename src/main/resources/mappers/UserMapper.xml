@@ -165,4 +165,8 @@
   <select id="getAll" resultMap="BaseResultMap" >
     SELECT <include refid="Base_Column_List"/> FROM mmall_user;
   </select>
+  <!--检验邮箱是否存在-->
+  <select id="checkEmail" resultType="int">
+    SELECT COUNT(1) FROM mmall_user WHERE email = #{email};
+  </select>
 </mapper>
