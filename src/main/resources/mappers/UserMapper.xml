@@ -161,4 +161,8 @@
   <select id="checkUsername" resultType="int" >
     SELECT COUNT(1) FROM mmall_user WHERE username=#{username};
   </select>
+  <!--获取所有用户 -->
+  <select id="getAll" resultMap="BaseResultMap" >
+    SELECT <include refid="Base_Column_List"/> FROM mmall_user;
+  </select>
 </mapper>

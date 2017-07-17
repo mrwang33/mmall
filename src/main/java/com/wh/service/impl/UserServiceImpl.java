@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * Created by wh on 17-7-7.
@@ -33,5 +34,11 @@ public class UserServiceImpl implements IUserService{
         //将密码设为空 避免controller将密码放在session中
         login.setPassword(StringUtils.EMPTY);
         return ServerResponse.createBySuccess("登录成功",login);
+    }
+
+    @Override
+    public ServerResponse<List<User>> getAll() {
+        ServerResponse<List<User>> sr = ServerResponse.createBySuccess(userMapper.getAll());
+        return sr;
     }
 }

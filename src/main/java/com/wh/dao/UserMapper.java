@@ -3,6 +3,8 @@ package com.wh.dao;
 import com.wh.pojo.User;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -19,4 +21,6 @@ public interface UserMapper {
     User login(@Param("username") String username, @Param("password") String password);
     //检查用户名是否存在
     int checkUsername(String username);
+    //获取所有用户
+    List<User> getAll();
 }

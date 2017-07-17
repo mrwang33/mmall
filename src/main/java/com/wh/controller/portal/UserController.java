@@ -4,11 +4,14 @@ import com.wh.common.ServerResponse;
 import com.wh.pojo.User;
 import com.wh.service.IUserService;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * Created by wh on 17-7-7.
@@ -26,5 +29,10 @@ public class UserController {
             session.setAttribute("user",login.getData());
         }
         return login;
+    }
+    @ResponseBody
+    @RequestMapping(value = "/getAll",method = RequestMethod.GET)
+    public ServerResponse<List<User>> getAll() {
+        return iUserService.getAll();
     }
 }
