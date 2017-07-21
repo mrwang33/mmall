@@ -25,5 +25,4 @@ public interface UserMapper {
     List<User> getAll();
     //检查邮箱是否存在
     int checkEmail(String email);
-    //添加用户
 }

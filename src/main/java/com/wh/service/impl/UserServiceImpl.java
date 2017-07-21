@@ -1,5 +1,6 @@
 package com.wh.service.impl;
 
+import com.wh.common.Const;
 import com.wh.common.ServerResponse;
 import com.wh.dao.UserMapper;
 import com.wh.pojo.User;
@@ -45,11 +46,13 @@ public class UserServiceImpl implements IUserService{
 
     @Override
     public ServerResponse<String> register(User user) {
-        if (userMapper.checkUsername(user.getUsername())>0) {
-            return ServerResponse.createByErrorMessage("用户名已存在!");
+        ServerResponse<String> verifyUsername = verify(user.getUsername(), Const.USERNAME);
+        if (!verifyUsername.isSuccess()) {
+            return verifyUsername;
         }
-        if (userMapper.checkEmail(user.getEmail())>0) {
-            return ServerResponse.createByErrorMessage("邮箱已存在!");
+        ServerResponse<String> verifyEmail = verify(user.getEmail(), Const.EMAIL);
+        if (!verifyEmail.isSuccess()) {
+            return verifyEmail;
         }
         //将密码进行md5加密
         user.setPassword(MD5Util.MD5EncodeUtf8(user.getPassword()));
@@ -58,5 +61,20 @@ public class UserServiceImpl implements IUserService{
             return ServerResponse.createByErrorMessage("注册失败！请稍后重试，或联系网站管理员");
         }
         return ServerResponse.createBySuccessMessage("注册成功");
+    }
+
+    @Override
+    public ServerResponse<String> verify(String information, String type) {
+        if (Const.EMAIL.equals(type)) {
+            if (userMapper.checkEmail(information)>0) {
+                return ServerResponse.createByErrorMessage("邮箱已存在!");
+            }
+        }
+        if (Const.USERNAME.equals(type)) {
+            if (userMapper.checkUsername(information)>0) {
+                return ServerResponse.createByErrorMessage("用户名已存在!");
+            }
+        }
+        return ServerResponse.createBySuccessMessage("验证通过!");
     }
 }

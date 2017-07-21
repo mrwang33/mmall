@@ -1,10 +1,10 @@
 package com.wh.controller.portal;
 
+import com.wh.common.Const;
 import com.wh.common.ServerResponse;
 import com.wh.pojo.User;
 import com.wh.service.IUserService;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -53,4 +53,16 @@ public class UserController {
     }
 
     //检查用户名是否存在
+    @ResponseBody
+    @RequestMapping(value = "/checkUsername",method = RequestMethod.POST)
+    public ServerResponse<String> checkUsername(String username) {
+        return iUserService.verify(username, Const.USERNAME);
+    }
+
+    //检查邮箱是否存在
+    @ResponseBody
+    @RequestMapping(value = "/checkEmail",method = RequestMethod.POST)
+    public ServerResponse<String> checkEmail(String email) {
+        return iUserService.verify(email, Const.EMAIL);
+    }
 }
