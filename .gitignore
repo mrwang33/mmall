@@ -4,8 +4,10 @@
 *.war
 *.ear
 
-.settings/
+.settings/*
 .project
 .classpath
 
-target/
+target/*
+.idea/*
+.iml
