@@ -7,7 +7,5 @@
 .settings/*
 .project
 .classpath
-
-target/*
-.idea/*
-mmall.iml
+.idea/workspace.xml
+target/
