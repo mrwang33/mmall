@@ -77,4 +77,16 @@ public class UserServiceImpl implements IUserService{
         }
         return ServerResponse.createBySuccessMessage("验证通过!");
     }
+
+    @Override
+    public ServerResponse<String> modifyPassword(Integer userId, String oldPassword, String newPassword) {
+        String oldPasswordMD5 = MD5Util.MD5EncodeUtf8(oldPassword);
+        User user = userMapper.selectByPrimaryKey(userId);
+        if (user.getPassword().equals(oldPasswordMD5)) {
+            user.setPassword(MD5Util.MD5EncodeUtf8(newPassword));
+            userMapper.updateByPrimaryKey(user);
+            return ServerResponse.createBySuccessMessage("修改成功");
+        }
+        return ServerResponse.createByErrorMessage("修改失败！请检查密码是否正确");
+    }
 }
