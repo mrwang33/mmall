@@ -65,4 +65,25 @@ public class UserController {
     public ServerResponse<String> checkEmail(String email) {
         return iUserService.verify(email, Const.EMAIL);
     }
+
+    /**
+     * 修改密码
+     * @param oldPassword 旧密码
+     * @param password 新密码
+     * @param passwordConfirm 确认新密码
+     * @param session
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "/modifyPassword",method = RequestMethod.POST)
+    public ServerResponse<String> modifyPassword(String oldPassword,String password,String passwordConfirm,HttpSession session) {
+        if (password==null||!password.equals(passwordConfirm)) {
+            return ServerResponse.createByErrorMessage("两次密码不一样！");
+        }
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        if (currentUser==null) {
+            return ServerResponse.createByErrorMessage("尚未登录!");
+        }
+        return iUserService.modifyPassword(currentUser.getId(),oldPassword,password);
+    }
 }
