@@ -86,4 +86,16 @@ public class UserController {
         }
         return iUserService.modifyPassword(currentUser.getId(),oldPassword,password);
     }
+
+    /**
+     * 重置密码
+     * @param session
+     * @param answer 问题回答
+     * @return
+     */
+    public ServerResponse<String> resetPassword(HttpSession session,String answer) {
+        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
+        currentUser.getQuestion();
+        return null;
+    }
 }
