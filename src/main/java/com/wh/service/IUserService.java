@@ -18,4 +18,6 @@ public interface IUserService {
     ServerResponse<String> register(User user);
     //验证数据是否有效
     ServerResponse<String> verify(String information,String type);
+    //修改密码
+    ServerResponse<String> modifyPassword(Integer userId,String oldPassword,String newPassword);
 }
