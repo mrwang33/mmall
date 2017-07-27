@@ -5,6 +5,9 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+/**
+ *
+ */
 public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
@@ -25,4 +28,10 @@ public interface UserMapper {
     List<User> getAll();
     //检查邮箱是否存在
     int checkEmail(String email);
+    /**
+     * 根据用户名获取用户
+     * @param username 用户名
+     * @return
+     */
+    User selectByUsername(String username);
 }

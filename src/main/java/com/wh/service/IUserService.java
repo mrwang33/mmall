@@ -20,4 +20,8 @@ public interface IUserService {
     ServerResponse<String> verify(String information,String type);
     //修改密码
     ServerResponse<String> modifyPassword(Integer userId,String oldPassword,String newPassword);
+    //根据用户名获取重置密码问题
+    ServerResponse<String> getQuestion(String username);
+    //重置密码
+    ServerResponse<String> resetPassword(String username,String answer);
 }

@@ -79,6 +79,15 @@ public class UserServiceImpl implements IUserService{
     }
 
     @Override
+    public ServerResponse<String> getQuestion(String username) {
+        User user = userMapper.selectByUsername(username);
+        if (user==null) {
+            return ServerResponse.createByErrorMessage("用户名不存在");
+        }
+        return ServerResponse.createBySuccess(user.getQuestion());
+    }
+
+    @Override
     public ServerResponse<String> modifyPassword(Integer userId, String oldPassword, String newPassword) {
         String oldPasswordMD5 = MD5Util.MD5EncodeUtf8(oldPassword);
         User user = userMapper.selectByPrimaryKey(userId);
@@ -88,5 +97,25 @@ public class UserServiceImpl implements IUserService{
             return ServerResponse.createBySuccessMessage("修改成功");
         }
         return ServerResponse.createByErrorMessage("修改失败！请检查密码是否正确");
+    }
+
+    /**
+     * 重置密码
+     * @param username
+     * @param answer
+     * @return
+     */
+    @Override
+    public ServerResponse<String> resetPassword(String username, String answer) {
+        User user = userMapper.selectByUsername(username);
+        if (user==null) {
+            return ServerResponse.createByErrorMessage("用户名不存在");
+        }
+        if (user.getAnswer()!=null&&!user.getAnswer().equals(answer)) {
+            return ServerResponse.createByErrorMessage("验证答案错误");
+        }
+        user.setPassword(MD5Util.MD5EncodeUtf8(Const.DEFAULT_PASSWORD));
+        userMapper.updateByPrimaryKey(user);
+        return ServerResponse.createBySuccess("密码重置成功",Const.DEFAULT_PASSWORD);
     }
 }

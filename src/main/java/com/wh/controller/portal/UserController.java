@@ -89,13 +89,26 @@ public class UserController {
 
     /**
      * 重置密码
-     * @param session
+     * @param username 用户名
      * @param answer 问题回答
      * @return
      */
-    public ServerResponse<String> resetPassword(HttpSession session,String answer) {
-        User currentUser = (User) session.getAttribute(Const.CURRENT_USER);
-        currentUser.getQuestion();
-        return null;
+    @ResponseBody
+    @RequestMapping(value = "resetPassword",method = RequestMethod.POST)
+    public ServerResponse<String> resetPassword(String username,String answer) {
+        return iUserService.resetPassword(username,answer);
     }
+
+    /**
+     * 获取重置密码问题
+     * @param username
+     * @return
+     */
+    @ResponseBody
+    @RequestMapping(value = "getQuestion",method = RequestMethod.POST)
+    public ServerResponse<String> getQuestion(String username) {
+        return iUserService.getQuestion(username);
+    }
+
+
 }
