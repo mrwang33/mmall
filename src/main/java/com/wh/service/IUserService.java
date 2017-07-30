@@ -24,4 +24,6 @@ public interface IUserService {
     ServerResponse<String> getQuestion(String username);
     //重置密码
     ServerResponse<String> resetPassword(String username,String answer);
+    //检查用户权限
+    ServerResponse checkUser(User user);
 }

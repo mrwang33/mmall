@@ -22,6 +22,14 @@ public class UserServiceImpl implements IUserService{
     private UserMapper userMapper;
 
     @Override
+    public ServerResponse checkUser(User user) {
+        if (user==null || user.getRole()!=1) {
+            return ServerResponse.createByError();
+        }
+        return ServerResponse.createBySuccess();
+    }
+
+    @Override
     public ServerResponse<User> login(String username, String password) {
         //检查用户是否存在
         int i = userMapper.checkUsername(username);
