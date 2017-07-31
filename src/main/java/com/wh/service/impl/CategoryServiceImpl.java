@@ -28,4 +28,13 @@ public class CategoryServiceImpl implements ICategoryService {
             return ServerResponse.createByErrorMessage("发生未知错误，请联系网站管理员");
         }
     }
+
+    @Override
+    public ServerResponse modifyCategory(Category category) {
+        int i = categoryMapper.updateByPrimaryKeySelective(category);
+        if (i>0) {
+            ServerResponse.createBySuccessMessage("更新分类成功");
+        }
+        return ServerResponse.createByErrorMessage("更新分类失败");
+    }
 }

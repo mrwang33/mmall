@@ -3,6 +3,7 @@ package com.wh.controller.backend;
 import com.wh.common.Const;
 import com.wh.common.ResponseCode;
 import com.wh.common.ServerResponse;
+import com.wh.pojo.Category;
 import com.wh.pojo.User;
 import com.wh.service.ICategoryService;
 import com.wh.service.IUserService;
@@ -39,6 +40,26 @@ public class CategoryController {
         }
         if (iUserService.checkUser(user).isSuccess()) {
             return iCategoryService.addCategory(categoryName,parentId);
+        } else {
+            return ServerResponse.createByErrorMessage("无权限");
+        }
+    }
+
+    /**
+     * 更新分类
+     * @param session
+     * @param category
+     * @return
+     */
+    @RequestMapping(value = "modifyCategory",method = RequestMethod.POST)
+    @ResponseBody
+    public ServerResponse modifyCategory(HttpSession session, Category category) {
+        User user = (User) session.getAttribute(Const.CURRENT_USER);
+        if (user==null) {
+            return ServerResponse.createByErrorCodeMessage(ResponseCode.NEED_LOGIN.getCode(),"请登录");
+        }
+        if (iUserService.checkUser(user).isSuccess()) {
+            return iCategoryService.modifyCategory(category);
         } else {
             return ServerResponse.createByErrorMessage("无权限");
         }
