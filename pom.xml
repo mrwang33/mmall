@@ -137,7 +137,7 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <!--<scope>test</scope>-->
+            <scope>test</scope>
         </dependency>
 
         <dependency>
@@ -198,7 +198,6 @@
             <version>0.9.4</version>
         </dependency>
 
-
         <!-- alipay -->
         <dependency>
             <groupId>commons-codec</groupId>
@@ -240,6 +239,17 @@
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.6.3</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.6.3</version>
         </dependency>
     </dependencies>
     <build>
